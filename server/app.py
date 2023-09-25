@@ -84,6 +84,10 @@ class ProductionByID(Resource):
 
 api.add_resource(ProductionByID, "/productions/<int:id>")
 
+class SignUp(Resource):
+    def post(self):
+        data = request.get_json()
+
 # 1. User - POST
 # - Create a User POST route by creating a class Users that inherits from Resource
 # - Add the route '/users' with api.add_resource()
