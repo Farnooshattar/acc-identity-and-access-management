@@ -84,9 +84,22 @@ class ProductionByID(Resource):
 
 api.add_resource(ProductionByID, "/productions/<int:id>")
 
+
 class SignUp(Resource):
     def post(self):
         data = request.get_json()
+        user = User(
+            name=data["name"],
+            email=data["email"]
+        )
+        db.session.add(user)
+        db.session.commit()
+
+        session["user_id"] = user.id
+        return user.to_dict(), 200
+
+
+api.add_resource(SignUp, "/signup")
 
 # 1. User - POST
 # - Create a User POST route by creating a class Users that inherits from Resource
