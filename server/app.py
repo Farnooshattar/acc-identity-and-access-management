@@ -101,6 +101,14 @@ class SignUp(Resource):
 
 api.add_resource(SignUp, "/signup")
 
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    user = User.query.filter(User.name == data["name"]).first()
+    session["user_id"] = user.id
+    return user.to_dict(), 200
+
 # 1. User - POST
 # - Create a User POST route by creating a class Users that inherits from Resource
 # - Add the route '/users' with api.add_resource()
@@ -139,6 +147,7 @@ api.add_resource(SignUp, "/signup")
 # -  create a 204 no content response to send back to the client
 
 # 7. Navigate to client/src/components/Navigation.js to build the logout button!
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

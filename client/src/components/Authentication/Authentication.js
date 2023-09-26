@@ -28,9 +28,9 @@ const Authentication = ({ updateUser }) => {
     const config = {
       method: "POST",
       headers: { "content-Type": "applicatio/json" },
-      body: JSON.stringify(userdata),
+      body: JSON.stringify(signUp ? userdata : { name: userdata.name }),
     };
-    fetch("/signup", config)
+    fetch(signUp ? "/signup" : "/login", config)
       .then((resp) => resp.json())
       .then((user) => updateUser(user));
     navigate("/");
