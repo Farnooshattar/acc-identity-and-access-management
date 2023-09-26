@@ -27,13 +27,15 @@ const Authentication = ({ updateUser }) => {
     e.preventDefault();
     const config = {
       method: "POST",
-      headers: { "content-Type": "applicatio/json" },
+      headers: { "content-Type": "application/json" },
       body: JSON.stringify(signUp ? userdata : { name: userdata.name }),
     };
     fetch(signUp ? "/signup" : "/login", config)
       .then((resp) => resp.json())
-      .then((user) => updateUser(user));
-    navigate("/");
+      .then((user) => {
+        updateUser(user);
+        navigate("/");
+      });
   };
 
   const handleChange = ({ target }) => {

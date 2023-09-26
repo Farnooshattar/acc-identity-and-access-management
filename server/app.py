@@ -106,9 +106,18 @@ api.add_resource(SignUp, "/signup")
 def login():
     data = request.get_json()
     user = User.query.filter(User.name == data["name"]).first()
+
     session["user_id"] = user.id
     return user.to_dict(), 200
 
+
+@app.route("/authorized", methods=["GET"])
+def authorized():
+    if session.get("user_id"):
+        print("There is a user logged in")
+    else:
+        print("No session")
+    return {}, 204
 # 1. User - POST
 # - Create a User POST route by creating a class Users that inherits from Resource
 # - Add the route '/users' with api.add_resource()
