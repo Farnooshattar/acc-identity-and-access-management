@@ -25,16 +25,10 @@ function App() {
   const fetchUser = () => {
     fetch("/authorized").then((resp) => {
       if (resp.ok) {
-        console.log("ok");
+        console.log("ok", resp.status);
       } else {
         console.log("resp not ok");
       }
-      // .then((data) => console.log(data));
-      /*
-    Create a GET fetch that goes to '/authorized'
-      - If returned successfully set the user to state and fetch our productions
-      - else set the user in state to Null
-    */
     });
   };
 
