@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 const Authentication = ({ updateUser }) => {
   const [signUp, setSignUp] = useState(false);
+  const [userdata, setUserData] = useState({ name: "", email: "" });
 
   const handleSignUpClick = () => setSignUp((signUp) => !signUp);
+  const navigate = useNavigate();
 
   /*
     - Finish building the authentication controlled for to handle the:
@@ -19,23 +23,44 @@ const Authentication = ({ updateUser }) => {
     - return to server/app.py to build the next route
 */
 
-  const handleSubmit = () => {
-    console.log("Handle the submit");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const config = {
+      method: "POST",
+      headers: { "content-Type": "applicatio/json" },
+      body: JSON.stringify(userdata),
+    };
+    fetch("/signup", config)
+      .then((resp) => resp.json())
+      .then((user) => updateUser(user));
+    navigate("/");
+  };
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    const userDataCopy = { ...userdata };
+    userDataCopy[name] = value;
+    setUserData(userDataCopy);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <label>Username</label>
-        <input type="text" name="name" value={"value"} onChange={console.log} />
+        <input
+          type="text"
+          name="name"
+          value={userdata.name}
+          onChange={handleChange}
+        />
         {signUp && (
           <>
             <label>Email</label>
             <input
               type="text"
               name="email"
-              value={"value"}
-              onChange={console.log}
+              value={userdata.email}
+              onChange={handleChange}
             />
           </>
         )}

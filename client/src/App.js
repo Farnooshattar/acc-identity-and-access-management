@@ -43,7 +43,7 @@ function App() {
 
   return (
     <>
-      <Navigation updateUser={updateUser}/>
+      <Navigation />
       <Routes>
         <Route
           path={"/productions/new"}
@@ -58,7 +58,7 @@ function App() {
           path={"/authentication"}
           element={
             <div>
-              <Authentication updateUser={updateUser}/>
+              <Authentication updateUser={updateUser} />
             </div>
           }
         />
