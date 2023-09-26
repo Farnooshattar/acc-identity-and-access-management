@@ -124,5 +124,11 @@ def authorized():
         return {"errors": "unauthorized"}, 401
 
 
+@app.route("/logout", methods=["DELETE"])
+def logout():
+    session["user_id"] = None
+    return {}, 204
+
+
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
