@@ -10,6 +10,7 @@ import ProductionDetail from "./components/ProductionDetail/ProductionDetail";
 function App() {
   const [productions, setProductions] = useState([]);
   const [user, setUser] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     fetchUser();
@@ -25,8 +26,10 @@ function App() {
   const fetchUser = () => {
     fetch("/authorized").then((resp) => {
       if (resp.ok) {
+        resp.json().then((user) => setUser(user));
         console.log("ok", resp.status);
       } else {
+        resp.json().then((err) => setErrors(err));
         console.log("resp not ok");
       }
     });
